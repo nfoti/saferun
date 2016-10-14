@@ -65,6 +65,13 @@ need_force=0
 
 # git checks in local repo
 
+# check if in git repo
+if [ "$(git rev-parse --is-inside-work-tree 2> /dev/null)" != "true" ]
+then
+    srun_print "\e[32m!! not in working tree of git repo, running commands\e[0m"
+    eval "$@"
+fi
+
 # uncommitted files -- do not allow forcing because you already staged the
 # files, just commit them!
 if [ $(git diff-index --quiet --cached HEAD) ]
