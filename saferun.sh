@@ -8,6 +8,18 @@ function usage() {
     echo "    [args]    any args that program requires"
 }
 
+function git_unstaged {
+    $(git diff-index --quiet --cached HEAD)
+}
+
+function git_untracked_ignored {
+    $(git ls-files --others)
+}
+
+function git_untracked_unignored {
+    $(git ls-files --exclude-standard --others)
+}
+
 if [ $# -lt 1 ]
 then
     usage
