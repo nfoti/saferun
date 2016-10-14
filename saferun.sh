@@ -81,7 +81,7 @@ then
 fi
 
 # unstaged files
-if test -z $(git diff-files --quiet)
+if [ $(expr `git status --porcelain 2>/dev/null | grep "^ M" | wc -l`) -gt 0 ]
 then
     srun_print "\e[31m!! unstaged changes present. stage and commit before running!\e[0m"
     need_force=1
